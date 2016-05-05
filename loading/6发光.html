@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{padding:0; margin:0;}
+body{background:#000;}
+#c1{display:block; margin:100px auto;}
+</style>
+<script>
+window.onload=function()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	var w=oC.width;
+	var h=oC.height;
+	var timer=null;
+	var count=0;
+	
+	gd.shadowBlur = 25;
+	gd.shadowColor = 'hsla(220, 80%, 60%, 1)';
+	gd.shadowColor = 'rgba(31, 71, 153, 1)';
+	gd.lineCap = 'round';
+	
+	setInterval(autoPlay, 16);
+	
+	function autoPlay()
+	{
+		clear();
+		drawArc();
+		drawBorder();
+		drawRound();
+		drawRound2();
+		
+		count+=2;	
+	}
+	
+	//清除
+	function clear()
+	{
+      gd.globalCompositeOperation = 'destination-out';
+      gd.fillStyle = 'rgba(0, 0, 0, .1)';
+      gd.fillRect(0, 0, w, h);
+      gd.globalCompositeOperation = 'lighter';		
+    }
+	
+	//画尾巴
+	function drawArc()
+	{		
+		var gra=gd.createLinearGradient(0, -90, 0, 90);
+		gra.addColorStop(0, 'hsla(220, 60%, 50%, 0.25)');
+		gra.addColorStop(1, 'hsla(220, 60%, 50%, 0)');
+		
+		gd.save();
+		gd.beginPath();
+		
+		gd.translate(w/2, h/2);
+      	gd.rotate(d2a(count));
+				
+		gd.arc(0, 0, Math.floor(w/3)-10, d2a(-90), d2a(90), true);
+		gd.lineWidth=20;
+		gd.strokeStyle=gra;
+		gd.stroke();
+		
+		gd.closePath();
+		gd.restore();
+	}
+	
+	//画边框
+	function drawBorder()
+	{
+		var gra=gd.createLinearGradient(0, -90, 0, 90);
+		gra.addColorStop(0, 'hsla(220, 100%, 50%, 0)');
+		gra.addColorStop(0.1, 'hsla(220, 100%, 50%, 0.7)');
+		gra.addColorStop(1, 'hsla(220, 100%, 50%, 0)');
+		
+		gd.save();
+		gd.beginPath();
+		
+		gd.translate(w/2, h/2);
+      	gd.rotate(d2a(count));
+		gd.arc(0, 0, Math.floor(w/3), d2a(-90), d2a(90), true);
+		gd.lineWidth=2;
+		gd.strokeStyle=gra;
+		gd.stroke();
+		
+		gd.closePath();
+		gd.restore();	
+	}
+	
+	//画尾巴头部
+	function drawRound()
+	{			
+		var gra=gd.createRadialGradient(0, w/2-56, 0, 0, w/2-56, 30);
+		gra.addColorStop(0, 'hsla(330, 50%, 50%, 0.35)');
+		gra.addColorStop(1, 'hsla(330, 50%, 50%, 0');
+		
+		gd.save();
+		gd.beginPath();
+		gd.translate(w/2, h/2);
+      	gd.rotate(d2a(count+185));
+		
+		gd.arc(0, w/2-56, 30, 0, Math.PI*2);
+		gd.fillStyle=gra;
+		gd.fill();
+		
+		gd.closePath();
+		gd.restore();
+	}
+	
+	//画尾巴头部光晕
+	function drawRound2()
+	{			
+		var gra=gd.createRadialGradient(0, w/2-60, 0, 0, w/2-60, 25);
+		gra.addColorStop(0, 'hsla(30, 100%, 50%, 0.2)');
+		gra.addColorStop(1, 'hsla(30, 100%, 50%, 0)');
+		
+		gd.save();
+		gd.beginPath();
+		gd.translate(w/2, h/2);
+      	gd.rotate(d2a(count+165));
+		gd.scale(1.5 ,1);
+		gd.arc(0, w/2-60, 25, 0, Math.PI*2);
+		gd.fillStyle=gra;
+		gd.fill();
+		
+		gd.closePath();
+		gd.restore();
+	}
+};
+
+function d2a(n)
+{
+	return Math.PI/180*n;
+}
+</script>
+</head>
+
+<body>
+	<canvas id="c1" width="300" height="300"></canvas>
+</body>
+</html>

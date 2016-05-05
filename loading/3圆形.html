@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{padding:0; margin:0;}
+#c1{display:block; margin:100px auto;}
+</style>
+<script>
+window.onload=function()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	
+	var w=oC.width;
+	var timer=null;
+	var count=0;
+	
+	timer=setInterval(function()
+	{
+		gd.clearRect(0, 0, w, w);
+		count++;
+		
+		if(count>=80)
+		{
+			clearInterval(timer);
+		}
+		
+		gd.save();
+		gd.beginPath();
+		
+		//画灰色背景
+		gd.beginPath();
+		gd.arc(w/2, w/2, w/2-6, d2a(0), d2a(360));
+		gd.lineWidth='12';		
+		gd.strokeStyle='rgba(255,255,255,.2)';
+		gd.stroke();
+		gd.closePath();
+		
+		//画白色填充
+		//gd.beginPath();
+		//gd.arc(w/2, w/2, w/2-12, d2a(0), d2a(360));
+		//gd.fillStyle='red';
+		//gd.fill();
+		//gd.closePath();
+		
+		//画进度
+		gd.beginPath();
+		gd.arc(w/2, w/2, w/2-6, d2a(-90), d2a(Math.floor(count/100*270)));	
+		gd.lineWidth='12';
+		gd.strokeStyle='rgba(255,255,255,1)';
+		gd.stroke();
+		gd.closePath();
+		//
+		renderCircleFlare = function(){
+		  gd.save();
+		  gd.translate(circle.x, circle.y);
+		  gd.rotate(dToR(circle.rotation+185));
+		  gd.scale(1,1);
+		  gd.beginPath();
+		  gd.arc(0, circle.radius, 30, 0, Math.PI *2, false);
+		  gd.closePath();
+		  var gradient3 = gd.createRadialGradient(0, circle.radius, 0, 0, circle.radius, 30);      
+		  gradient3.addColorStop(0, 'hsla(330, 50%, 50%, .35)');
+		  gradient3.addColorStop(1, 'hsla(330, 50%, 50%, 0)');
+		  gd.fillStyle = gradient3;
+		  gd.fill();     
+		  gd.restore();
+		}
+		
+		//画文字
+		var str=count+'%';
+		gd.font='14px Arial';
+		gd.fillStyle='#333';
+		gd.textAlign='center';
+		gd.textBaseline='middle';
+		gd.fillText(str, w/2, w/2);
+		
+		gd.restore();
+	}, 30);
+
+	console.log(gd.textBaseline);
+};
+
+function d2a(n)
+{
+	return Math.PI/180*n;
+}
+</script>
+</head>
+
+<body style="background:#000" >
+	<canvas id="c1" width="200" height="200"></canvas>
+</body>
+</html>
