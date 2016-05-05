@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>circleProgress using Canvas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        tr.circle {
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript" src="circleProgress.js"></script>
+</head>
+<body >
+<a href="#"  id='btn' >Show me!</a>
+<table>
+    <tr>
+        <td>
+            <canvas id="circle-progress-custom" width="200" height="200"></canvas>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+	var oBtn=document.getElementById('btn');
+	
+    function showMe(m) {
+        circleProgress({
+            id: 'circle-progress-custom',
+            progress: m, // default: 100
+            duration: 2000, // default: 1000
+            color: 'green', // default: 'rgb(52, 145, 204)'
+            bgColor: '#ccc', // default: 'rgb(230, 230, 230)'
+            textColor: 'green', // default: 'black'
+            progressWidth: 0.15, // default: 0.25 (r)
+            fontScale: 0.5, // default: 0.4 (r)
+            toFixed: 1  // default: 0
+        });
+    };
+	oBtn.onclick=function showMe() {
+        circleProgress({
+            id: 'circle-progress-custom',
+            progress: 30, // default: 100
+            duration: 2000, // default: 1000
+            color: 'green', // default: 'rgb(52, 145, 204)'
+            bgColor: '#ccc', // default: 'rgb(230, 230, 230)'
+            textColor: 'green', // default: 'black'
+            progressWidth: 0.15, // default: 0.25 (r)
+            fontScale: 0.5, // default: 0.4 (r)
+            toFixed: 1  // default: 0
+        });
+	}
+    showMe(10.23);
+</script>
+</body>
+</html>
